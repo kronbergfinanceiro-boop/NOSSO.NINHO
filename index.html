@@ -23,13 +23,21 @@
             background: linear-gradient(90deg, #ff6b6b, #feca57, #1dd1a1, #54a0ff, #5f27cd);
             height: 6px;
         }
+        .heartbeat {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        @keyframes heartbeat {
+            from { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            to { transform: scale(1); }
+        }
     </style>
 </head>
 <body class="overflow-x-hidden text-gray-700">
 
     <div class="rainbow-bg"></div>
 
-    <header class="relative min-h-screen flex flex-col items-center justify-center text-center p-6 bg-cover bg-bottom" style="background-image: url('https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&q=80&w=1920'); background-blend-mode: overlay; background-color: rgba(224, 242, 254, 0.85);">
+    <header class="relative min-h-screen flex flex-col items-center justify-center text-center p-6 bg-cover bg-center" style="background-image: url('https://replicate.delivery/xpbkg/9N6pT4L8z6y0K9K2C5L0D2L0D2L0D2L0D2L0D2L0D2L0D2/output.png'); background-blend-mode: overlay; background-color: rgba(224, 242, 254, 0.8);">
         
         <div class="max-w-3xl mx-auto space-y-6" data-aos="zoom-in" data-aos-duration="1200">
             <div class="inline-block bg-white rounded-full p-6 shadow-xl border-4 border-blue-400 transform hover:scale-105 transition duration-300">
@@ -46,10 +54,16 @@
                 Estamos fundos para que possamos melhorar nossas estruturas para os acolhidos. Todo tipo de doação é bem-vinda!
             </p>
 
+            <div class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold text-2xl px-10 py-5 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 my-4">
+                <a href="https://pagamentos-production.up.railway.app/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 justify-center">
+                    <i class="fas fa-qrcode"></i> FAZER DOAÇÃO
+                </a>
+            </div>
+
             </div>
         </div>
 
-        <div class="absolute bottom-10 left-1/0 transform -translate-x-1/2 animate-bounce text-blue-500 text-2xl">
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-blue-500 text-2xl">
             <p class="text-sm font-bold tracking-widest uppercase mb-2">Role para ajudar</p>
             <i class="fas fa-chevron-down"></i>
         </div>
@@ -118,12 +132,6 @@
                 Gere o QR Code ou Pix Copia e Cola. Tudo no total sigilo e da melhor forma para receber sua doação!
             </p>
             
-            <div class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold text-2xl px-10 py-5 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 my-4">
-            <a href="https://pagamentos-production.up.railway.app/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 justify-center">
-             <i class="fas fa-qrcode"></i> FAZER DOAÇÃO
-            </a>
-        </div>
-
             <p class="text-sm text-blue-300 pt-8 border-t border-blue-800">
                 &copy; 2026 Lar Nosso Ninho. Todos os direitos reservados. 
             </p>
