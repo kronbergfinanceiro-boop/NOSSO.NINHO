@@ -261,14 +261,13 @@
   function showDonationPopup() {
     const container = document.getElementById('donation-popup-container');
     
-    // Escolhe uma doação aleatória da lista
+    // Escolhe uma doação aleatória
     const donation = fakeDonations[Math.floor(Math.random() * fakeDonations.length)];
     
-    // Cria o elemento do pop-up
+    // Cria o pop-up
     const popup = document.createElement('div');
     popup.className = 'donation-popup';
     
-    // Monta o conteúdo interno (Coração + Texto + Tempo)
     popup.innerHTML = `
       <span class="popup-heart">♥</span>
       <div>
@@ -277,39 +276,42 @@
       </div>
     `;
     
-    // Adiciona ao container
     container.appendChild(popup);
     
-    // Pequeno delay para ativar a animação do CSS de subida
+    // Mostra o pop-up quase instantaneamente
     setTimeout(() => {
       popup.classList.add('show');
-    }, 100);
+    }, 50);
     
-    // Remove o pop-up após 5 segundos (sumindo suavemente antes)
+    // O pop-up fica visível por 3.5 segundos e depois some
     setTimeout(() => {
       popup.classList.remove('show');
-      // Espera a transição do CSS acabar para remover do HTML
       setTimeout(() => {
         popup.remove();
       }, 500);
-    }, 5000);
+    }, 3500);
   }
 
-  // Função para gerenciar os intervalos de aparição
+  // Controla a frequência dos pop-ups
   function startPopupCycle() {
-    // Exibe o primeiro após 3 segundos da página aberta
+    // 🚀 Começa SUPER RÁPIDO: apenas 1 segundo após a página carregar
     setTimeout(() => {
       showDonationPopup();
       
-      // Define para aparecer um novo a cada 12 a 20 segundos de forma aleatória
-      setInterval(() => {
-        showDonationPopup();
-      }, Math.floor(Math.random() * (20000 - 12000 + 1)) + 12000);
-
-    }, 3000);
+      // ⏱️ ALTA FREQUÊNCIA: Aparece um novo pop-up a cada 4 a 7 segundos
+      function loop() {
+        const tempoAleatorio = Math.floor(Math.random() * (7000 - 4000 + 1)) + 4000;
+        setTimeout(() => {
+          showDonationPopup();
+          loop(); // Chama a si mesmo para manter o ciclo rápido e infinito
+        }, tempoAleatorio);
+      }
+      
+      loop();
+    }, 1000); 
   }
 
-  // Inicia o script assim que a página carregar
+  // Inicia o script
   window.addEventListener('DOMContentLoaded', startPopupCycle);
 </script>
 </body>
