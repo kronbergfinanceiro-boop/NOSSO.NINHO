@@ -177,5 +177,138 @@
             mirror: true    // Anima os elementos ao rolar para cima também
         });
     </script>
+    <div id="donation-popup-container"></div>
+
+<style>
+  /* Estilização do Container */
+  #donation-popup-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none; /* Garante que não vai atrapalhar cliques na página */
+  }
+
+  /* Estilização do Pop-up */
+  .donation-popup {
+    background-color: #ffffff;
+    color: #333333;
+    padding: 12px 20px;
+    border-radius: 50px; /* Deixa as bordas bem arredondadas combinando com o botão do logo */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Montserrat', sans-serif, Arial; /* Fonte limpa */
+    font-size: 14px;
+    pointer-events: auto;
+    
+    /* Animação de entrada e saída */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  /* Estado ativo da animação */
+  .donation-popup.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Ícone de Coração dentro do Pop-up */
+  .popup-heart {
+    color: #ff3333; /* Vermelho combinando com o coração do logo */
+    font-size: 18px;
+    animation: pulse 1.5s infinite;
+  }
+
+  .donation-name {
+    font-weight: bold;
+    color: #1a4a9f; /* Azul escuro combinando com a identidade visual */
+  }
+
+  .donation-time {
+    font-size: 11px;
+    color: #777;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* Animação de pulso no coração */
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+</style>
+
+<script>
+  // Lista fictícia de doações recentes (pode alterar os nomes e valores à vontade)
+  const fakeDonations = [
+    { name: "Maria Silva", amount: "R$ 20", time: "há 2 minutos" },
+    { name: "João Carlos", amount: "R$ 50", time: "há 5 minutos" },
+    { name: "Ana Paula", amount: "R$ 30", time: "há 12 minutos" },
+    { name: "Carlos Eduardo", amount: "R$ 100", time: "há 20 minutos" },
+    { name: "Fernanda Lima", amount: "R$ 15", time: "há 32 minutos" },
+    { name: "Anônimo", amount: "R$ 40", time: "há 45 minutos" }
+  ];
+
+  function showDonationPopup() {
+    const container = document.getElementById('donation-popup-container');
+    
+    // Escolhe uma doação aleatória da lista
+    const donation = fakeDonations[Math.floor(Math.random() * fakeDonations.length)];
+    
+    // Cria o elemento do pop-up
+    const popup = document.createElement('div');
+    popup.className = 'donation-popup';
+    
+    // Monta o conteúdo interno (Coração + Texto + Tempo)
+    popup.innerHTML = `
+      <span class="popup-heart">♥</span>
+      <div>
+        <span class="donation-name">${donation.name}</span> acabou de doar <strong>${donation.amount}</strong>!
+        <span class="donation-time">${donation.time}</span>
+      </div>
+    `;
+    
+    // Adiciona ao container
+    container.appendChild(popup);
+    
+    // Pequeno delay para ativar a animação do CSS de subida
+    setTimeout(() => {
+      popup.classList.add('show');
+    }, 100);
+    
+    // Remove o pop-up após 5 segundos (sumindo suavemente antes)
+    setTimeout(() => {
+      popup.classList.remove('show');
+      // Espera a transição do CSS acabar para remover do HTML
+      setTimeout(() => {
+        popup.remove();
+      }, 500);
+    }, 5000);
+  }
+
+  // Função para gerenciar os intervalos de aparição
+  function startPopupCycle() {
+    // Exibe o primeiro após 3 segundos da página aberta
+    setTimeout(() => {
+      showDonationPopup();
+      
+      // Define para aparecer um novo a cada 12 a 20 segundos de forma aleatória
+      setInterval(() => {
+        showDonationPopup();
+      }, Math.floor(Math.random() * (20000 - 12000 + 1)) + 12000);
+
+    }, 3000);
+  }
+
+  // Inicia o script assim que a página carregar
+  window.addEventListener('DOMContentLoaded', startPopupCycle);
+</script>
 </body>
 </html>
